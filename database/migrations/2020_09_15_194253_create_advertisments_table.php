@@ -17,6 +17,8 @@ class CreateAdvertismentsTable extends Migration
             $table->id();
             $table->string('link');
             $table->string('header');
+            $table->string('price');
+            $table->string('location');
             $table->text('description');
             $table->string('image_path');
             $table->timestamp('posted_at');
