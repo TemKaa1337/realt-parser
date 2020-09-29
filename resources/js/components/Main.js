@@ -8,13 +8,13 @@ import Advertisment from '../components/Advertisment';
 
 import '../../css/app.css';
 
-function GetAdvertisments(adsInfo) {
+function GetAdvertisments() {
 
     let ads = [];
 
-    for (let i = 0; i < ads.length; i ++) {
+    for (let i = 0; i < this.ads.length; i ++) {
         ads.push(
-            <Advertisment key = {i} adInfo = {ads[i]} />
+            <Advertisment key = {i} adInfo = {this.ads[i]} />
         )
     }
 
@@ -43,7 +43,7 @@ class Main extends Component {
             <div className = "app-container">
                 <Header />
                 <div className="ad-container">
-                    { GetAdvertisments(this.ads) }
+                    { GetAdvertisments() }
                 </div>
                 <Footer />
             </div>
