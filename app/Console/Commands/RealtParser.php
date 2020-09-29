@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 use KubAT\PhpSimple\HtmlDomParser;
 use App\Models\Advertisment;
 
@@ -67,7 +68,7 @@ class RealtParser extends Command
         // iterate through advertisments
         foreach ($this->dom->find('.bd-item') as $advertisment) {
             $ad = new Advertisment();
-
+            $description = '';
             // $header = $advertisment->find('.media-body', 0)->find('a', 0)->plaintext;
             // $link = $advertisment->find('.media-body', 0)->find('a', 0)->href;
             // $postHref = $advertisment->find('.media-body', 0)->find('a', 0)->plaintext;
@@ -81,13 +82,27 @@ class RealtParser extends Command
             
             
             $ad->header = $advertisment->find('.media-body', 0)->find('a', 0)->plaintext;
+            // echo $ad->header.' ---- ';
             $ad->link = $advertisment->find('.media-body', 0)->find('a', 0)->href;
-            $ad->image_path = $advertisment->find('.bd-item-left-top', 0)->find('img', 0)->getAttribute('data-original');
+            $imageUrl = $advertisment->find('.bd-item-left-top', 0)->find('img', 0)->getAttribute('data-original');
+            $ad->image_path = $imageUrl;
+            // мб тут и не надо убирать
+            // $price = str_replace('&nbsp;', ' ', $advertisment->find('span[class=price-byr]', 0)->plaintext);
             $ad->price = $advertisment->find('span[class=price-byr]', 0)->plaintext;
             $ad->posted_at = $this->formatPostedDate($advertisment->find('p[class=fl f11 grey]', 0)->plaintext);
-            $ad->location = $advertisment->find('div[class=bd-item-right-center]', 0)->find('p', 0)->plaintext;
-            $ad->description = $advertisment->find('div[class=bd-item-right-center]', 0)->find('p', 1)->plaintext;
+
+            foreach ($advertisment->find('div[class=bd-item-right-center]', 0)->children() as $index => $value) {
+                if ($index == 0)
+                    $ad->location = $value->plaintext;
+                else
+                    $description .= $value->plaintext;
+            }
+            // $ad->location = $advertisment->find('div[class=bd-item-right-center]', 0)->find('p', 0)->plaintext;
+            $ad->description = $description;
             $ad->save();
+
+            $imageName = explode('/', $imageUrl);
+            Storage::disk('public')->put($imageName[count($imageName) - 1], file_get_contents($ad->image_path));
         }
         
         return 0;

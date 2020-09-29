@@ -21,7 +21,7 @@ class CreateAdvertismentsTable extends Migration
             $table->string('location');
             $table->text('description');
             $table->string('image_path');
-            $table->timestamp('posted_at');
+            $table->date('posted_at');
         });
     }
 
