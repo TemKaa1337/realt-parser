@@ -8,13 +8,13 @@ import Advertisment from '../components/Advertisment';
 
 import '../../css/app.css';
 
-function GetAdvertisments() {
+function GetAdvertisments(adsInfo) {
 
     let ads = [];
 
-    for (let i = 0; i < 8; i ++) {
+    for (let i = 0; i < ads.length; i ++) {
         ads.push(
-            <Advertisment key = {i} />
+            <Advertisment key = {i} adInfo = {ads[i]} />
         )
     }
 
@@ -29,9 +29,9 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        fetch()
-            .then( async (data) => {
-
+        axios.get('http://localhost/api/advertisments')
+            .then(response => {
+                this.setState({ads: response.data, isDataFetched: true});
             })
             .catch( err => {
                 console.log(err)
@@ -43,7 +43,7 @@ class Main extends Component {
             <div className = "app-container">
                 <Header />
                 <div className="ad-container">
-                    { GetAdvertisments() }
+                    { GetAdvertisments(this.ads) }
                 </div>
                 <Footer />
             </div>
