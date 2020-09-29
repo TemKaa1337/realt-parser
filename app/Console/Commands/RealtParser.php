@@ -83,8 +83,6 @@ class RealtParser extends Command
             $ad->header = $advertisment->find('.media-body', 0)->find('a', 0)->plaintext;
             $ad->link = $advertisment->find('.media-body', 0)->find('a', 0)->href;
             $ad->image_path = $advertisment->find('.bd-item-left-top', 0)->find('img', 0)->getAttribute('data-original');
-            // мб тут и не надо убирать
-            // $price = str_replace('&nbsp;', ' ', $advertisment->find('span[class=price-byr]', 0)->plaintext);
             $ad->price = $advertisment->find('span[class=price-byr]', 0)->plaintext;
             $ad->posted_at = $this->formatPostedDate($advertisment->find('p[class=fl f11 grey]', 0)->plaintext);
             $ad->location = $advertisment->find('div[class=bd-item-right-center]', 0)->find('p', 0)->plaintext;
