@@ -1,14 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 
 import '../../css/footer.css';
 
-function Footer(props) {
-    return (
-        <div className = "footer">
-            
-        </div>
-    );
-}
+export default class Footer extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-export default Footer;
+    render() {
+        return (
+            <div className = "footer">
+
+            </div>
+        );
+    }
+}

@@ -9,8 +9,5 @@ class Advertisment extends Model
 {
     use HasFactory;
     
-    public $timestamps = false;
-    protected $fillable = [
-        '*'
-    ];
+    protected $fillable = ['*'];
 }

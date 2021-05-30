@@ -1,14 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 
 import '../../css/header.css';
 
-function Header(props) {
-    return (
-        <div className = "header">
-            
-        </div>
-    );
-}
+export default class Header extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-export default Header;
+    render() {
+        return (
+            <div className = "header">
+
+            </div>
+        );
+    }
+}

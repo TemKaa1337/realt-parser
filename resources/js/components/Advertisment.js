@@ -1,14 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 
 import '../../css/advertisment.css';
 
-function Advertisment(props) {
-    return (
-        <div className = "advertisment">
-            <p>Advertisment</p>
-        </div>
-    );
-}
+export default class Advertisment extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-export default Advertisment;
+    render() {
+        return (
+            <div className = "advertisment">
+                <p>Advertisment</p>
+            </div>
+        );
+    }
+}
