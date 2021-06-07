@@ -78,7 +78,7 @@ class Parser extends Command
                     $ad->emails = $additionalInfo['emails'];
                     $ad->header = trim($advertisment->find('.teaser-title', 0)->plaintext);
                     $imageUrl = $advertisment->find('.lazy', 0)->getAttribute('data-original');
-                    $ad->image_path = Str::startsWith($imageUrl, 'https') ? $imageUrl : null;
+                    $ad->image_path = Str::startsWith($imageUrl, 'https') ? $imageUrl : 'https://realt.by/'.$advertisment->find('.lazy', 0)->getAttribute('data-original');
                     $ad->byn_price = $this->getPrice($advertisment->find('.d-flex.align-items-center.color-black.fs-huge', 0)->plaintext ?? null);
                     $ad->usd_price = $this->getPrice($advertisment->find('.col-auto', 0)->plaintext ?? null);
 
@@ -91,15 +91,18 @@ class Parser extends Command
 
                     $ad->posted_at = $this->formatPostedDate($info[$index]->plaintext);
 
-                    $ad->description = trim($advertisment->find('.info-text.info-more', 0)->find('p', 0)->plaintext ?? $advertisment->find('.info-text.info-more', 0)->find('li', 0)->plaintext);
+                    $ad->description = str_replace('&quot;', '"', trim($advertisment->find('.info-text.info-more', 0)->find('p', 0)->plaintext ?? $advertisment->find('.info-text.info-more', 0)->find('li', 0)->plaintext));
                     $ad->location = trim($advertisment->find('.location.color-graydark', 0)->plaintext);
                     $ad->room_count = $this->getRoomCount($advertisment->find('.info-large', 0)->find('span', 0)->plaintext);
-                    $ad->save();
 
                     if ($ad->image_path !== null) {
                         $imageName = explode('/', $ad->image_path);
                         Storage::disk('public')->put($imageName[count($imageName) - 1], file_get_contents($ad->image_path));
+
+                        $ad->image_path = asset('storage/'.$imageName[count($imageName) - 1]);
                     }
+
+                    $ad->save();
                 }
             }
 

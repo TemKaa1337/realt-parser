@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import '../../css/header.css';
-
 export default class Header extends Component {
     constructor(props) {
         super(props);
@@ -9,8 +7,8 @@ export default class Header extends Component {
 
     render() {
         return (
-            <div className = "header">
-
+            <div className = 'navbar'>
+                <a href = '#'>temkaatrashprojects.tech</a>
             </div>
         );
     }
