@@ -84,10 +84,11 @@ class Parser extends Command
 
                     $info = $advertisment->find('.info-mini.color-graydark', 0)->find('span');
 
-                    if (count($info) == 3)
-                        $index = 1;
-                    else if (count($info) == 4)
-                        $index = 2;
+                    $index = count($info) - 2;
+                    // if (count($info) == 3)
+                    //     $index = 1;
+                    // else if (count($info) == 4)
+                    //     $index = 2;
 
                     $ad->posted_at = $this->formatPostedDate($info[$index]->plaintext);
 
@@ -195,6 +196,6 @@ class Parser extends Command
 
     private function isPhone(string $contact) : bool
     {
-        return strpos($contact, '@') == false;
+        return strpos($contact, '@') === false;
     }
 }
