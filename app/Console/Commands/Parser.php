@@ -101,7 +101,7 @@ class Parser extends Command
 
                     $ad->save();
                 } else {
-                    $this->broadcastProcessingMessage("skipping {$link}, this is an advertisment...");
+                    $this->broadcastProcessingMessage("skipping, this is an advertisment...");
                 }
             }
 
