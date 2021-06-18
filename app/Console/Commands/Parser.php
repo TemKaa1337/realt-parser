@@ -68,7 +68,7 @@ class Parser extends Command
                 $link = $advertisment->find('.image.mb-0', 0)->href ?? null;
 
                 if ($link !== null) {
-                    var_dump($link);
+                    $this->broadcastProcessingMessage("processing {$link}...");
 
                     $ad = Advertisment::firstOrNew(['link' => $link]);
 
@@ -85,10 +85,6 @@ class Parser extends Command
                     $info = $advertisment->find('.info-mini.color-graydark', 0)->find('span');
 
                     $index = count($info) - 2;
-                    // if (count($info) == 3)
-                    //     $index = 1;
-                    // else if (count($info) == 4)
-                    //     $index = 2;
 
                     $ad->posted_at = $this->formatPostedDate($info[$index]->plaintext);
 
@@ -104,6 +100,8 @@ class Parser extends Command
                     }
 
                     $ad->save();
+                } else {
+                    $this->broadcastProcessingMessage("skipping {$link}, this is an advertisment...");
                 }
             }
 
@@ -149,7 +147,7 @@ class Parser extends Command
             $url = $this->parseUrl."?page={$startPage}";
         }
 
-        var_dump("processing url: {$url}");
+        $this->broadcastProcessingMessage("retrieving data from {$url}...");
 
         $this->dom = HtmlDomParser::str_get_html(file_get_contents($url));
     }
@@ -171,7 +169,8 @@ class Parser extends Command
     private function parseSingleAd(string $url) : array
     {
         sleep(intval($this->option('innerPageSleep')));
-        var_dump("processing inner url: {$url}");
+
+        $this->broadcastProcessingMessage("retrieving data from inner {$url}...");
 
         $phones = [];
         $emails = [];
@@ -197,5 +196,10 @@ class Parser extends Command
     private function isPhone(string $contact) : bool
     {
         return strpos($contact, '@') === false;
+    }
+
+    private function broadcastProcessingMessage(string $message) : void
+    {
+        echo $message.PHP_EOL;
     }
 }
