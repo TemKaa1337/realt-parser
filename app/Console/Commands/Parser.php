@@ -148,8 +148,9 @@ class Parser extends Command
         }
 
         $this->broadcastProcessingMessage("retrieving data from {$url}...");
-
-        $this->dom = HtmlDomParser::str_get_html(file_get_contents($url));
+	
+        // $this->dom = HtmlDomParser::str_get_html(file_get_contents($url));
+        $this->dom = HtmlDomParser::file_get_html($url);
     }
 
     private function getRoomCount(string $rooms) : int
