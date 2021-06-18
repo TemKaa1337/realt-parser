@@ -113,7 +113,7 @@ class Parser extends Command
 
     private function formatPostedDate(string $date) : string
     {
-        return date('Y-m-d', strtotime(trim($date)));
+        return date('d.m.Y', strtotime(trim($date)));
     }
 
     private function getPrice(?string $price) : ?int
@@ -148,7 +148,7 @@ class Parser extends Command
         }
 
         $this->broadcastProcessingMessage("retrieving data from {$url}...");
-	
+
         // $this->dom = HtmlDomParser::str_get_html(file_get_contents($url));
         $this->dom = HtmlDomParser::file_get_html($url);
     }
