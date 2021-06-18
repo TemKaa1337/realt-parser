@@ -14,7 +14,7 @@ export default class Advertisments extends Component {
     }
 
     componentDidMount() {
-        const url = 'http://127.0.0.1:8000/api/get/advertisments';
+        const url = 'https://realt-parser.temkaatrashprojects.tech/api/get/advertisments';
 
         fetch(url)
         .then(response => response.json())
