@@ -29476,7 +29476,7 @@ var Advertisments = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      var url = 'http://127.0.0.1:8000/api/get/advertisments';
+      var url = 'https://realt-parser.temkaatrashprojects.tech/api/get/advertisments';
       fetch(url).then(function (response) {
         return response.json();
       }).then(function (result) {
@@ -29621,8 +29621,8 @@ var Header = /*#__PURE__*/function (_Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Admin\Desktop\MYPROJECTS\realt-parser\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Admin\Desktop\MYPROJECTS\realt-parser\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/realt-parser/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/realt-parser/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
